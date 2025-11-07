@@ -1,5 +1,15 @@
 <script setup>
+import { ref } from "vue";
 import { RouterLink, RouterView } from "vue-router";
+
+const header = ref("Shopping List Application");
+
+const items = ref([
+  { id: 1, label: "10 product 1" },
+  { id: 2, label: "20 product 2" },
+  { id: 3, label: "3 product 3" },
+  { id: 2, label: "4 product 4" },
+]);
 </script>
 
 <template>
@@ -21,7 +31,18 @@ import { RouterLink, RouterView } from "vue-router";
     </nav>
   </header>
 
-  <RouterView />
+  <!-- <h1>{{ message }}</h1> -->
+  <!-- <h1>{{ message ? message : "Welcome" }}</h1> -->
+  <!-- <input v-model="message" /> -->
+  <!-- <input v-model="message" /> -->
+  <h2>{{ header }}</h2>
+
+  <ul>
+    <li v-for="item in items" v-bind:key="item.id">{{ item.label }}</li>
+    <li v-for="{ id, label } in items" v-bind:key="id">{{ label }}</li>
+  </ul>
+
+  <!-- <RouterView /> -->
 </template>
 
 <style scoped></style>
