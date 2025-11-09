@@ -14,11 +14,7 @@ const items = ref([
 
 const newItem = ref("");
 
-const newItemPriority = ref("low");
-
 const newItemHighPriority = ref(false);
-
-const iceCreamFlavors = ref([]);
 </script>
 
 <template>
@@ -40,55 +36,36 @@ const iceCreamFlavors = ref([]);
     </nav>
   </header>
 
-  <!-- <h1>{{ message }}</h1> -->
-  <!-- <h1>{{ message ? message : "Welcome" }}</h1> -->
-  <!-- <input v-model="message" /> -->
-  <!-- <input v-model="message" /> -->
   <h2>{{ header }}</h2>
-  <!-- <input v-model.lazy="newItem" type="text" placeholder="Add an item" />
-  <input v-model.trim="newItem" type="text" placeholder="Add an item" />
-  <input v-model.number="newItem" type="text" placeholder="Add an item" /> -->
-  <input v-model.number="newItem" type="text" placeholder="Add an item" />
-  <!-- {{ newItem }} -->
+  <form
+    class="add-item-form"
+    v-on:submit.prevent="items.push({ id: items.length + 1, label: newItem })"
+  >
+    <!-- <input
+      v-model="newItem"
+      v-on:keyup.enter="items.push({ id: items.length + 1, label: newItem })"
+      type="text"
+      placeholder="Add an item"
+    /> -->
+    <input v-model="newItem" type="text" placeholder="Add an item" />
 
-  <!-- Priority:
-  <label>
-    <input type="radio" v-model="newItemPriority" value="low" />
-    Low
-  </label>
-  <label>
-    <input type="radio" v-model="newItemPriority" value="high" />
-    High
-  </label>
-  {{ newItemPriority }} -->
+    <label>
+      <input type="checkbox" v-model="newItemHighPriority" />
+      High Priority
+    </label>
+    <!-- <button
+      class="btn btn-primary"
+      v-on:click="items.push({ id: items.length + 1, label: newItem })"
+    >
+      Save Item
+    </button> -->
+    <button class="btn btn-primary">Save Item</button>
 
-  <!-- <label>
-    Priority:
-    <select v-model="newItemPriority">
-      <option value="low">Low</option>
-      <option value="high">High</option>
-    </select>
-  </label>
-  {{ newItemPriority }} -->
-
-  <label>
-    <input type="checkbox" v-model="newItemHighPriority" />
-    High Priority
-  </label>
-  {{ newItemHighPriority }}
-
-  <br />
-  <label> <input type="checkbox" value="vanilla" v-model="iceCreamFlavors" /> Vanilla </label>
-  <label> <input type="checkbox" value="chocolate" v-model="iceCreamFlavors" /> Chocolate </label>
-  <label> <input type="checkbox" value="strawberry" v-model="iceCreamFlavors" /> Strawberry </label
-  ><br />
-  {{ iceCreamFlavors }}
-
-  <ul>
-    <li v-for="item in items" v-bind:key="item.id">{{ item.label }}</li>
-    <!-- <li v-for="{ id, label } in items" v-bind:key="id">{{ label }}</li> -->
-  </ul>
-
+    <ul>
+      <li v-for="item in items" v-bind:key="item.id">{{ item.label }}</li>
+      <!-- <li v-for="{ id, label } in items" v-bind:key="id">{{ label }}</li> -->
+    </ul>
+  </form>
   <!-- <RouterView /> -->
 </template>
 
