@@ -13,6 +13,8 @@ const items = ref([
 ]);
 
 const newItem = ref("");
+
+const newItemPriority = ref("low");
 </script>
 
 <template>
@@ -43,7 +45,19 @@ const newItem = ref("");
   <input v-model.trim="newItem" type="text" placeholder="Add an item" />
   <input v-model.number="newItem" type="text" placeholder="Add an item" /> -->
   <input v-model.number="newItem" type="text" placeholder="Add an item" />
-  {{ newItem }}
+  <!-- {{ newItem }} -->
+
+  Priority:
+  <label>
+    <input type="radio" v-model="newItemPriority" value="low" />
+    Low
+  </label>
+  <label>
+    <input type="radio" v-model="newItemPriority" value="high" />
+    High
+  </label>
+  {{ newItemPriority }}
+
   <ul>
     <li v-for="item in items" v-bind:key="item.id">{{ item.label }}</li>
     <!-- <li v-for="{ id, label } in items" v-bind:key="id">{{ label }}</li> -->
