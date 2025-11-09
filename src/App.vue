@@ -1,3 +1,4 @@
+<!-- eslint-disable no-unused-vars -->
 <script setup>
 import { ref } from "vue";
 import { RouterLink, RouterView } from "vue-router";
@@ -10,6 +11,8 @@ const items = ref([
   { id: 3, label: "3 product 3" },
   { id: 2, label: "4 product 4" },
 ]);
+
+const newItem = ref("");
 </script>
 
 <template>
@@ -36,10 +39,14 @@ const items = ref([
   <!-- <input v-model="message" /> -->
   <!-- <input v-model="message" /> -->
   <h2>{{ header }}</h2>
-
+  <!-- <input v-model.lazy="newItem" type="text" placeholder="Add an item" />
+  <input v-model.trim="newItem" type="text" placeholder="Add an item" />
+  <input v-model.number="newItem" type="text" placeholder="Add an item" /> -->
+  <input v-model.number="newItem" type="text" placeholder="Add an item" />
+  {{ newItem }}
   <ul>
     <li v-for="item in items" v-bind:key="item.id">{{ item.label }}</li>
-    <li v-for="{ id, label } in items" v-bind:key="id">{{ label }}</li>
+    <!-- <li v-for="{ id, label } in items" v-bind:key="id">{{ label }}</li> -->
   </ul>
 
   <!-- <RouterView /> -->
