@@ -6,10 +6,10 @@ import { RouterLink, RouterView } from "vue-router";
 const header = ref("Shopping List Application");
 
 const items = ref([
-  { id: 1, label: "10 product 1" },
-  { id: 2, label: "20 product 2" },
-  { id: 3, label: "3 product 3" },
-  { id: 2, label: "4 product 4" },
+  // { id: 1, label: "10 product 1" },
+  // { id: 2, label: "20 product 2" },
+  // { id: 3, label: "3 product 3" },
+  // { id: 2, label: "4 product 4" },
 ]);
 
 const newItem = ref("");
@@ -18,6 +18,13 @@ const newItemHighPriority = ref(false);
 
 const saveItem = () => {
   items.value.push({ id: items.value.length + 1, label: newItem.value });
+  newItem.value = "";
+};
+
+const editing = ref(false);
+
+const doEdit = (e) => {
+  editing.value = e;
   newItem.value = "";
 };
 </script>
@@ -42,7 +49,9 @@ const saveItem = () => {
   </header>
 
   <h2>{{ header }}</h2>
-  <form class="add-item-form" v-on:submit.prevent="saveItem()">
+  <button v-if="editing" class="btn" @click="doEdit(false)">Cancel</button>
+  <button v-else class="btn" @click="doEdit(true)">Add Item</button>
+  <form class="add-item-form" v-on:submit.prevent="saveItem()" v-if="editing">
     <!-- <input
       v-model="newItem"
       v-on:keyup.enter="items.push({ id: items.length + 1, label: newItem })"
@@ -62,12 +71,15 @@ const saveItem = () => {
       Save Item
     </button> -->
     <button class="btn btn-primary">Save Item</button>
-
-    <ul>
-      <li v-for="item in items" v-bind:key="item.id">{{ item.label }}</li>
-      <!-- <li v-for="{ id, label } in items" v-bind:key="id">{{ label }}</li> -->
-    </ul>
   </form>
+
+  <ul>
+    <li v-for="item in items" v-bind:key="item.id">{{ item.label }}</li>
+    <!-- <li v-for="{ id, label } in items" v-bind:key="id">{{ label }}</li> -->
+  </ul>
+
+  <p v-if="!items.length">Nothing to see here</p>
+
   <!-- <RouterView /> -->
 </template>
 
