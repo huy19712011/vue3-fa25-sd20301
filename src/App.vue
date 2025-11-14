@@ -6,10 +6,10 @@ import { RouterLink, RouterView } from "vue-router";
 const header = ref("Shopping List Application");
 
 const items = ref([
-  // { id: 1, label: "10 product 1" },
-  // { id: 2, label: "20 product 2" },
-  // { id: 3, label: "3 product 3" },
-  // { id: 2, label: "4 product 4" },
+  { id: 1, label: "10 product 1", purchased: false, priority: false },
+  { id: 2, label: "20 product 2", purchased: false, priority: false },
+  { id: 3, label: "3 product 3", purchased: true, priority: true },
+  { id: 2, label: "4 product 4", purchased: true, priority: true },
 ]);
 
 const newItem = ref("");
@@ -17,8 +17,13 @@ const newItem = ref("");
 const newItemHighPriority = ref(false);
 
 const saveItem = () => {
-  items.value.push({ id: items.value.length + 1, label: newItem.value });
+  items.value.push({
+    id: items.value.length + 1,
+    label: newItem.value,
+    priority: newItemHighPriority.value,
+  });
   newItem.value = "";
+  newItemHighPriority.value = false;
 };
 
 const editing = ref(false);
@@ -26,6 +31,10 @@ const editing = ref(false);
 const doEdit = (e) => {
   editing.value = e;
   newItem.value = "";
+};
+
+const togglePurchased = (item) => {
+  item.purchased = !item.purchased;
 };
 </script>
 
@@ -77,7 +86,14 @@ const doEdit = (e) => {
   </form>
 
   <ul>
-    <li v-for="item in items" v-bind:key="item.id">{{ item.label }}</li>
+    <li
+      v-for="item in items"
+      v-bind:key="item.id"
+      :class="{ strikeout: item.purchased, priority: item.priority }"
+      @click="togglePurchased(item)"
+    >
+      {{ item.label }}
+    </li>
     <!-- <li v-for="{ id, label } in items" v-bind:key="id">{{ label }}</li> -->
   </ul>
 
