@@ -51,6 +51,9 @@ const doEdit = (e) => {
   <h2>{{ header }}</h2>
   <button v-if="editing" class="btn" @click="doEdit(false)">Cancel</button>
   <button v-else class="btn" @click="doEdit(true)">Add Item</button>
+
+  <!-- <a v-bind:href="newItem">Dynamic Link</a> -->
+
   <form class="add-item-form" v-on:submit.prevent="saveItem()" v-if="editing">
     <!-- <input
       v-model="newItem"
@@ -70,7 +73,7 @@ const doEdit = (e) => {
     >
       Save Item
     </button> -->
-    <button class="btn btn-primary">Save Item</button>
+    <button :disabled="newItem.length < 5" class="btn btn-primary">Save Item</button>
   </form>
 
   <ul>
