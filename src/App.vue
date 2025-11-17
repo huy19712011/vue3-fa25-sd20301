@@ -59,56 +59,16 @@ const reversedItems = computed(() => {
             <li class="nav-item">
               <RouterLink class="nav-link" to="/about">About</RouterLink>
             </li>
+            <li class="nav-item">
+              <RouterLink class="nav-link" to="/student">Student</RouterLink>
+            </li>
           </ul>
         </div>
       </div>
     </nav>
   </header>
 
-  <h2>{{ header }}</h2>
-  <button v-if="editing" class="btn" @click="doEdit(false)">Cancel</button>
-  <button v-else class="btn" @click="doEdit(true)">Add Item</button>
-
-  <!-- <a v-bind:href="newItem">Dynamic Link</a> -->
-
-  <form class="add-item-form" v-on:submit.prevent="saveItem()" v-if="editing">
-    <!-- <input
-      v-model="newItem"
-      v-on:keyup.enter="items.push({ id: items.length + 1, label: newItem })"
-      type="text"
-      placeholder="Add an item"
-    /> -->
-    <input v-model="newItem" type="text" placeholder="Add an item" />
-
-    <label>
-      <input type="checkbox" v-model="newItemHighPriority" />
-      High Priority
-    </label>
-    <!-- <button
-      class="btn btn-primary"
-      v-on:click="items.push({ id: items.length + 1, label: newItem })"
-    >
-      Save Item
-    </button> -->
-    <button :disabled="newItem.length < 5" class="btn btn-primary">Save Item</button>
-  </form>
-  <p>{{ characterCount }} / 200</p>
-
-  <ul>
-    <li
-      v-for="item in reversedItems"
-      v-bind:key="item.id"
-      :class="{ strikeout: item.purchased, priority: item.priority }"
-      @click="togglePurchased(item)"
-    >
-      {{ item.label }}
-    </li>
-    <!-- <li v-for="{ id, label } in items" v-bind:key="id">{{ label }}</li> -->
-  </ul>
-
-  <p v-if="!items.length">Nothing to see here</p>
-
-  <!-- <RouterView /> -->
+  <RouterView />
 </template>
 
 <style scoped></style>
