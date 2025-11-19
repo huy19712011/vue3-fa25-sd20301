@@ -6,12 +6,22 @@ const students = ref([
   { id: 2, name: "B", email: "b@gmail.com", phone: "222222" },
 ]);
 
+const isEditing = ref(false);
+
 const form = ref({
   id: null,
   name: "",
   email: "",
   phone: "",
 });
+
+function handleSubmit() {
+  if (isEditing.value) {
+    updateStudent();
+  } else {
+    addStudent();
+  }
+}
 
 function addStudent() {
   students.value.push({
@@ -20,17 +30,45 @@ function addStudent() {
     email: form.value.email,
     phone: form.value.phone,
   });
+
+  resetForm();
+}
+
+function editStudent(student) {
+  isEditing.value = true;
+  form.value = { ...student };
+}
+
+function resetForm() {
+  form.value = { id: null, name: "", email: "", phone: "" };
+}
+
+function updateStudent() {
+  const index = students.value.findIndex((s) => s.id === form.value.id);
+  students.value[index] = { ...form.value };
+
+  resetForm();
+  isEditing.value = false;
+}
+
+function cancelEdit() {
+  resetForm();
+  isEditing.value = false;
+}
+
+function deleteStudent(id) {
+  students.value = students.value.filter((s) => s.id !== id);
 }
 </script>
 
 <template>
   <div class="container">
-    <form @submit.prevent="addStudent()" class="form">
+    <form @submit.prevent="handleSubmit()" class="form">
       <input v-model="form.name" placeholder="Name" required />
       <input v-model="form.email" placeholder="Email" required />
       <input v-model="form.phone" placeholder="Phone" required />
-      <button>Add</button>
-      <button>Cancel</button>
+      <button type="submit">{{ isEditing ? "Update" : "Add" }}</button>
+      <button v-if="isEditing" type="button" @click="cancelEdit()">Cancel</button>
     </form>
 
     <table border="1" cellpadding="6" style="width: 100%">
@@ -50,8 +88,8 @@ function addStudent() {
           <td>{{ student.email }}</td>
           <td>{{ student.phone }}</td>
           <td>
-            <button>Edit</button>
-            <button>Delete</button>
+            <button @click="editStudent(student)">Edit</button>
+            <button @click="deleteStudent(student.id)">Delete</button>
           </td>
         </tr>
       </tbody>
@@ -59,4 +97,22 @@ function addStudent() {
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.container {
+  width: 600px;
+  margin: auto;
+}
+form {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+input {
+  padding: 6px;
+}
+button {
+  padding: 6px 32px;
+}
+</style>
