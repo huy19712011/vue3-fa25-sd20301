@@ -62,6 +62,9 @@ const reversedItems = computed(() => {
             <li class="nav-item">
               <RouterLink class="nav-link" to="/student">Student</RouterLink>
             </li>
+            <li class="nav-item">
+              <RouterLink class="nav-link" to="/student_v2">Student_v2</RouterLink>
+            </li>
           </ul>
         </div>
       </div>
