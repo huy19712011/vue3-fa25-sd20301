@@ -5,6 +5,11 @@ const props = defineProps({
     required: true,
   },
 });
+
+const emit = defineEmits(["edit-student"]);
+const editStudent = (student) => {
+  emit("edit-student", student);
+};
 </script>
 
 <template>
@@ -32,7 +37,7 @@ const props = defineProps({
             <td>{{ student.email }}</td>
             <td>{{ student.phone }}</td>
             <td>
-              <button class="btn btn-success">Edit</button>
+              <button class="btn btn-success" @click="editStudent(student)">Edit</button>
               <button class="btn btn-danger">Delete</button>
             </td>
           </tr>
