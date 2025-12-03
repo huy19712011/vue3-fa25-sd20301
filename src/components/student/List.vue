@@ -6,9 +6,13 @@ const props = defineProps({
   },
 });
 
-const emit = defineEmits(["edit-student"]);
+const emit = defineEmits(["edit-student", "delete-student"]);
 const editStudent = (student) => {
   emit("edit-student", student);
+};
+
+const deleteStudent = (student) => {
+  emit("delete-student", student);
 };
 </script>
 
@@ -38,7 +42,7 @@ const editStudent = (student) => {
             <td>{{ student.phone }}</td>
             <td>
               <button class="btn btn-success" @click="editStudent(student)">Edit</button>
-              <button class="btn btn-danger">Delete</button>
+              <button class="btn btn-danger" @click="deleteStudent(student)">Delete</button>
             </td>
           </tr>
         </tbody>
